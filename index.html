@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Agenda Clara: cadastro, consulta, edição e exclusão de clientes. Aplicação front-end acadêmica de Sérgio Luiz Muniz Botelho Junior.">
+  <meta name="theme-color" content="#1746ed">
+  <title>Clientes | Agenda Clara</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#conteudo">Ir para o conteúdo</a>
+  <header class="site-header container">
+    <div class="brand" aria-label="Agenda Clara, gestão de clientes">
+      <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+      <div><span class="brand-name">Agenda Clara</span><span class="brand-description">Gestão de clientes</span></div>
+    </div>
+    <button class="button button-outline" id="exportar" type="button">Exportar CSV</button>
+  </header>
+
+  <main class="container" id="conteudo">
+    <div id="aviso" class="notice" role="alert" hidden></div>
+    <section aria-labelledby="titulo">
+      <div class="page-heading">
+        <div><h1 id="titulo">Clientes</h1><p class="subtitle">Um lugar para cuidar das suas conexões.</p></div>
+        <button class="button button-primary" id="novo-cliente" type="button"><span class="plus" aria-hidden="true">+</span>Novo cliente</button>
+      </div>
+
+      <dl class="stats" aria-label="Resumo dos clientes">
+        <div><dt>Clientes cadastrados</dt><dd id="total">0</dd></div>
+        <div><dt>Ativos</dt><dd id="ativos">0</dd></div>
+        <div><dt>Inativos</dt><dd id="inativos">0</dd></div>
+      </dl>
+
+      <div class="toolbar">
+        <div class="search-field">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="7.5"/><path d="m16 16 5 5"/></svg>
+          <label class="sr-only" for="busca">Buscar por nome ou e-mail</label>
+          <input id="busca" type="search" placeholder="Buscar por nome ou e-mail" autocomplete="off" maxlength="120">
+          <button id="limpar-busca" class="icon-button" type="button" aria-label="Limpar busca" title="Limpar busca" hidden>×</button>
+        </div>
+        <div class="status-filter">
+          <label class="sr-only" for="filtro-status">Filtrar por status</label>
+          <select id="filtro-status"><option value="todos">Todos os status</option><option value="ativo">Ativos</option><option value="inativo">Inativos</option></select>
+        </div>
+      </div>
+
+      <div class="table-panel">
+        <table>
+          <caption class="sr-only">Lista de clientes cadastrados. Use as ações para editar ou excluir um cliente.</caption>
+          <thead><tr><th scope="col">Cliente</th><th scope="col">Contato</th><th scope="col">Status</th><th scope="col">Cadastro</th><th scope="col" class="actions-heading">Ações</th></tr></thead>
+          <tbody id="clientes"></tbody>
+        </table>
+        <div id="estado-vazio" class="empty-state" hidden>
+          <h2 id="vazio-titulo">Nenhum cliente cadastrado</h2>
+          <p id="vazio-texto">Cadastre o primeiro cliente para começar.</p>
+          <button class="button button-outline" id="vazio-acao" type="button">Novo cliente</button>
+        </div>
+        <div class="table-footer">
+          <p id="resultado" role="status" aria-live="polite" aria-atomic="true"></p>
+          <nav class="pagination" aria-label="Paginação de clientes">
+            <button id="pagina-anterior" class="icon-button" type="button" aria-label="Página anterior" title="Página anterior" hidden>‹</button>
+            <span id="pagina-atual">Página 1 de 1</span>
+            <button id="proxima-pagina" class="icon-button" type="button" aria-label="Próxima página" title="Próxima página" hidden>›</button>
+          </nav>
+        </div>
+      </div>
+      <p class="storage-note">Dados de exemplo. As alterações ficam salvas neste navegador.</p>
+      <noscript><p class="notice">Ative o JavaScript no navegador para utilizar o cadastro de clientes.</p></noscript>
+    </section>
+  </main>
+
+  <footer class="site-footer"><div class="container"><p>Sérgio Luiz Muniz Botelho Junior</p><p>Tarefa 2 · Aplicação front-end</p></div></footer>
+
+  <dialog id="editor" class="dialog" aria-labelledby="editor-titulo" aria-describedby="editor-descricao">
+    <div class="dialog-heading"><div><h2 id="editor-titulo">Novo cliente</h2><p id="editor-descricao">Preencha os dados para criar um cadastro.</p></div><button id="fechar-editor" class="icon-button" type="button" aria-label="Fechar cadastro" title="Fechar cadastro">×</button></div>
+    <form id="formulario" novalidate>
+      <p class="required-note">Os campos com * são obrigatórios.</p>
+      <div class="form-fields">
+        <div class="field full-width"><label for="nome">Nome completo *</label><input id="nome" name="nome" autocomplete="name" maxlength="100" required aria-describedby="erro-nome"><p class="field-error" id="erro-nome"></p></div>
+        <div class="field full-width"><label for="email">E-mail *</label><input id="email" name="email" type="email" autocomplete="email" maxlength="150" required aria-describedby="erro-email"><p class="field-error" id="erro-email"></p></div>
+        <div class="field"><label for="telefone">Telefone</label><input id="telefone" name="telefone" type="tel" autocomplete="tel" maxlength="25" placeholder="(11) 99999-9999" aria-describedby="erro-telefone"><p class="field-error" id="erro-telefone"></p></div>
+        <div class="field"><label for="cidade">Cidade e estado</label><input id="cidade" name="cidade" autocomplete="address-level2" maxlength="80" placeholder="São Paulo, SP" aria-describedby="erro-cidade"><p class="field-error" id="erro-cidade"></p></div>
+        <div class="field full-width"><label for="status">Status</label><select id="status" name="status"><option value="ativo">Ativo</option><option value="inativo">Inativo</option></select></div>
+      </div>
+      <p class="form-error" id="erro-formulario" role="alert" hidden></p>
+      <div class="dialog-actions"><button class="button button-neutral" id="cancelar-editor" type="button">Cancelar</button><button class="button button-primary" id="salvar-cliente" type="submit">Cadastrar cliente</button></div>
+    </form>
+  </dialog>
+
+  <dialog id="confirmacao" class="dialog confirmation-dialog" aria-labelledby="confirmacao-titulo" aria-describedby="confirmacao-descricao">
+    <h2 id="confirmacao-titulo">Excluir cliente?</h2><p id="confirmacao-descricao"></p>
+    <p class="form-error" id="erro-confirmacao" role="alert" hidden></p>
+    <div class="dialog-actions"><button id="cancelar-confirmacao" class="button button-neutral" type="button" autofocus>Cancelar</button><button id="confirmar-acao" class="button button-danger" type="button">Excluir cliente</button></div>
+  </dialog>
+  <div class="toast" id="mensagem" role="status" aria-live="polite" aria-atomic="true"></div>
+</body>
+</html>
