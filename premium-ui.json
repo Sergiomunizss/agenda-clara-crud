@@ -3,6 +3,6 @@
   "sourceRoots": ["."],
   "locale": "pt-BR",
   "canonicalMap": "UX-CONTRACT.md",
-  "requiredCapabilities": ["Form", "CRUD", "Select/Listbox", "Toast", "Scrollbar", "Dialog"],
+  "requiredCapabilities": ["Form", "CRUD", "Select/Listbox", "Toast", "Scrollbar"],
   "ownership": { "Select/Listbox": "native" }
 }
