@@ -5,6 +5,12 @@ Aplicação front-end da **Tarefa 2: Meu primeiro deploy na nuvem de uma aplica�
 **Autor:** Sérgio Luiz Muniz Botelho Junior  
 **Tecnologias:** HTML5, CSS3 e JavaScript puro, sem frameworks ou dependências de execução.
 
+**Aplicação publicada:** https://agenda-clara-crud.vercel.app/  
+**Repositório:** https://github.com/Sergiomunizss/agenda-clara-crud
+
+O repositório está vinculado ao projeto `agenda-clara-crud` na Vercel, com a branch
+principal `main` como origem dos deploys de produção.
+
 ![Tela do cadastro de clientes](docs/preview.png)
 
 ## O que a aplicação permite
